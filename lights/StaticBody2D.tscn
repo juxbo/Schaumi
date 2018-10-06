@@ -1,0 +1,44 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://caster.png" type="Texture" id=1]
+
+[sub_resource type="RectangleShape2D" id=4]
+
+custom_solver_bias = 0.0
+extents = Vector2( 12.8544, 13.2142 )
+
+[sub_resource type="OccluderPolygon2D" id=1]
+
+closed = true
+cull_mode = 0
+polygon = PoolVector2Array( -15.913, -15.9738, 15.9079, -16.0785, 15.6986, 15.847, -16.1223, 15.9517 )
+
+[node name="StaticBody2D" type="StaticBody2D"]
+
+editor/display_folded = true
+position = Vector2( 116.489, 68.9955 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+constant_linear_velocity = Vector2( 0, 0 )
+constant_angular_velocity = 0.0
+friction = 1.0
+bounce = 0.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
+
+position = Vector2( 0.808296, 2.23904 )
+shape = SubResource( 4 )
+
+[node name="shadow_caster" type="Sprite" parent="." index="1"]
+
+editor/display_folded = true
+position = Vector2( 0.808296, 2.23904 )
+texture = ExtResource( 1 )
+
+[node name="occluder" type="LightOccluder2D" parent="shadow_caster" index="0"]
+
+occluder = SubResource( 1 )
+light_mask = 1
+
+

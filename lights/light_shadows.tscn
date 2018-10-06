@@ -1,0 +1,243 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://bg.png" type="Texture" id=1]
+[ext_resource path="res://minimal.tres" type="TileSet" id=2]
+[ext_resource path="res://KinematicBody2D.gd" type="Script" id=3]
+[ext_resource path="res://new folder/robo/idle/idle_1.png" type="Texture" id=4]
+[ext_resource path="res://new folder/robo/idle/idle_2.png" type="Texture" id=5]
+[ext_resource path="res://new folder/robo/boost/boost_1.png" type="Texture" id=6]
+[ext_resource path="res://new folder/robo/boost/boost_2.png" type="Texture" id=7]
+[ext_resource path="res://light.png" type="Texture" id=8]
+[ext_resource path="res://lights.gd" type="Script" id=9]
+
+[sub_resource type="CircleShape2D" id=2]
+
+custom_solver_bias = 0.0
+radius = 26.679
+
+[sub_resource type="SpriteFrames" id=3]
+
+animations = [ {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "boost",
+"speed": 5.0
+} ]
+_sections_unfolded = [ "Resource" ]
+
+[sub_resource type="Animation" id=5]
+
+resource_name = "flash"
+length = 1.0
+loop = false
+step = 0.1
+
+[sub_resource type="Animation" id=6]
+
+resource_name = "fwwa"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:energy")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.2, 0.4, 0.2 ]
+}
+
+[sub_resource type="Animation" id=4]
+
+resource_name = "flashing"
+length = 1.0
+loop = true
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimationPlayer/blue_light2:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 210.297, 44.2834 ), Vector2( 38.8224, 39.7709 ), Vector2( 210.297, 44.2834 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimationPlayer/blue_light2:rotation_degrees")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = false
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ 0.0, 0.0, 0.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AnimationPlayer/blue_light2:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5, 0.7, 0.8, 1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0.8, 0.2, 1.0, 0.2, 0.8 ]
+}
+
+[node name="base" type="Node2D" index="0"]
+
+[node name="ambient" type="CanvasModulate" parent="." index="0"]
+
+color = Color( 0.27451, 0.27451, 0.27451, 1 )
+
+[node name="bg" type="Sprite" parent="." index="1"]
+
+position = Vector2( 401.251, 301.906 )
+scale = Vector2( 6.39454, 4.82665 )
+texture = ExtResource( 1 )
+
+[node name="casters" type="Node2D" parent="." index="2"]
+
+position = Vector2( 0, 0.527039 )
+
+[node name="TileMap" type="TileMap" parent="casters" index="0"]
+
+position = Vector2( -2.70746, 1.80499 )
+mode = 0
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 32, 32 )
+cell_quadrant_size = 16
+cell_custom_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+cell_half_offset = 2
+cell_tile_origin = 0
+cell_y_sort = false
+cell_clip_uv = false
+collision_use_kinematic = false
+collision_friction = 1.0
+collision_bounce = 0.0
+collision_layer = 1
+collision_mask = 1
+occluder_light_mask = 1
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 22, 0, 0, 23, 0, 0, 65536, 0, 0, 65543, 0, 0, 65547, 0, 0, 65559, 0, 0, 131072, 0, 0, 131079, 0, 0, 131083, 0, 0, 131095, 0, 0, 196608, 0, 0, 196615, 0, 0, 196619, 0, 0, 196631, 0, 0, 262144, 0, 0, 262151, 0, 0, 262155, 0, 0, 262167, 0, 0, 327680, 0, 0, 327691, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 327700, 0, 0, 327701, 0, 0, 327702, 0, 0, 327703, 0, 0, 393216, 0, 0, 393239, 0, 0, 458752, 0, 0, 458759, 0, 0, 458775, 0, 0, 524288, 0, 0, 524295, 0, 0, 524311, 0, 0, 589824, 0, 0, 589831, 0, 0, 589847, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 655366, 0, 0, 655367, 0, 0, 655368, 0, 0, 655369, 0, 0, 655370, 0, 0, 655371, 0, 0, 655372, 0, 0, 655383, 0, 0, 720896, 0, 0, 720908, 0, 0, 720919, 0, 0, 786432, 0, 0, 786444, 0, 0, 786445, 0, 0, 786446, 0, 0, 786447, 0, 0, 786448, 0, 0, 786452, 0, 0, 786453, 0, 0, 786454, 0, 0, 786455, 0, 0, 851968, 0, 0, 851980, 0, 0, 851991, 0, 0, 917504, 0, 0, 917516, 0, 0, 917527, 0, 0, 983040, 0, 0, 983063, 0, 0, 1048576, 0, 0, 1048599, 0, 0, 1114112, 0, 0, 1114135, 0, 0, 1179648, 0, 0, 1179649, 0, 0, 1179650, 0, 0, 1179651, 0, 0, 1179652, 0, 0, 1179653, 0, 0, 1179654, 0, 0, 1179655, 0, 0, 1179656, 0, 0, 1179657, 0, 0, 1179658, 0, 0, 1179659, 0, 0, 1179660, 0, 0, 1179661, 0, 0, 1179662, 0, 0, 1179663, 0, 0, 1179664, 0, 0, 1179665, 0, 0, 1179666, 0, 0, 1179667, 0, 0, 1179668, 0, 0, 1179669, 0, 0, 1179670, 0, 0, 1179671, 0, 0 )
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="." index="3"]
+
+position = Vector2( 507.055, 260.352 )
+input_pickable = false
+collision_layer = 1
+collision_mask = 1
+collision/safe_margin = 0.08
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D" index="0"]
+
+shape = SubResource( 2 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D" index="1"]
+
+rotation = 1.5708
+scale = Vector2( 3, 3 )
+frames = SubResource( 3 )
+animation = "idle"
+playing = true
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="blue_light" type="Light2D" parent="KinematicBody2D/AnimatedSprite" index="0"]
+
+position = Vector2( 0.138794, -0.162262 )
+rotation = -1.5708
+scale = Vector2( 0.166667, 0.166667 )
+enabled = true
+editor_only = false
+texture = ExtResource( 8 )
+offset = Vector2( 0, 0 )
+texture_scale = 1.0
+color = Color( 0.35584, 0.976563, 0.00762939, 1 )
+energy = 0.339713
+mode = 0
+range_height = 0.0
+range_z_min = -1024
+range_z_max = 1024
+range_layer_min = 0
+range_layer_max = 0
+range_item_cull_mask = 1
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 0 )
+shadow_buffer_size = 2048
+shadow_gradient_length = 1.4
+shadow_filter = 3
+shadow_filter_smooth = 5.3
+shadow_item_cull_mask = 1
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D/AnimatedSprite/blue_light" index="0"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/flash = SubResource( 5 )
+anims/fwwa = SubResource( 6 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="lights" type="Node2D" parent="." index="4"]
+
+script = ExtResource( 9 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="lights" index="0"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/flashing = SubResource( 4 )
+blend_times = [  ]
+_sections_unfolded = [ "Playback Options" ]
+
+[node name="blue_light2" type="Light2D" parent="lights/AnimationPlayer" index="0"]
+
+position = Vector2( 210.297, 44.2834 )
+scale = Vector2( 0.5, 0.5 )
+enabled = true
+editor_only = false
+texture = ExtResource( 8 )
+offset = Vector2( 0, 0 )
+texture_scale = 1.0
+color = Color( 0.976563, 0.976563, 0.976563, 1 )
+energy = 0.752791
+mode = 0
+range_height = 0.0
+range_z_min = -1024
+range_z_max = 1024
+range_layer_min = 0
+range_layer_max = 0
+range_item_cull_mask = 1
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 0 )
+shadow_buffer_size = 2048
+shadow_gradient_length = 1.4
+shadow_filter = 3
+shadow_filter_smooth = 5.3
+shadow_item_cull_mask = 1
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+
