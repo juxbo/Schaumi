@@ -1,8 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://caster.png" type="Texture" id=1]
+[ext_resource path="res://new folder/dirt/paws_down.png" type="Texture" id=2]
+[ext_resource path="res://new folder/dirt/paws_left.png" type="Texture" id=3]
+[ext_resource path="res://new folder/dirt/paws_up.png" type="Texture" id=4]
+[ext_resource path="res://new folder/dirt/paws.png" type="Texture" id=5]
+[ext_resource path="res://new folder/dirt/shit_puddle.png" type="Texture" id=6]
 
-[sub_resource type="OccluderPolygon2D" id=2]
+[sub_resource type="OccluderPolygon2D" id=1]
 
 closed = true
 cull_mode = 0
@@ -12,14 +17,12 @@ polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 
-editor/display_folded = true
 texture = ExtResource( 1 )
 _sections_unfolded = [ "Offset", "Transform" ]
 
 [node name="LightOccluder2D" type="LightOccluder2D" parent="Sprite" index="0"]
 
-scale = Vector2( 1, 1 )
-occluder = SubResource( 2 )
+occluder = SubResource( 1 )
 light_mask = 1
 
 [node name="StaticBody2D" type="StaticBody2D" parent="Sprite" index="1"]
@@ -39,5 +42,30 @@ _sections_unfolded = [ "Transform" ]
 build_mode = 0
 polygon = PoolVector2Array( -16, -16, -16, 16, 16, 16, 16, -16, -16, -16 )
 _sections_unfolded = [ "Transform" ]
+
+[node name="paws_down" type="Sprite" parent="." index="1"]
+
+position = Vector2( 128, 0 )
+texture = ExtResource( 2 )
+
+[node name="paws_left" type="Sprite" parent="." index="2"]
+
+position = Vector2( 64, 0 )
+texture = ExtResource( 3 )
+
+[node name="paws_up" type="Sprite" parent="." index="3"]
+
+position = Vector2( 96, 0 )
+texture = ExtResource( 4 )
+
+[node name="paws_right" type="Sprite" parent="." index="4"]
+
+position = Vector2( 32, 0 )
+texture = ExtResource( 5 )
+
+[node name="Sprite2" type="Sprite" parent="." index="5"]
+
+position = Vector2( 160, 0 )
+texture = ExtResource( 6 )
 
 

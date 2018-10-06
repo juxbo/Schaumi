@@ -6,12 +6,15 @@ extends KinematicBody2D
 var targetposition = Vector2()
 var speed = 10.0
 
+signal move
+
 func _ready():
 	get_node("AnimatedSprite/blue_light/AnimationPlayer").play("fwwa")
 	pass
 
 func _process(delta):
 	self.move_and_slide(Vector2(10.0*speed, 0.0).rotated(self.rotation))
+	emit_signal("move")
 	pass
 
 func _input(event):
@@ -27,7 +30,12 @@ func _input(event):
 	if event is InputEventMouseButton:
 		match event.button_index:
 			BUTTON_LEFT:
-				self.targetposition = event.position
+				if event.pressed:
+					self.speed = 20.0
+					self.get_node("AnimatedSprite").animation = "boost"
+				else:
+					self.speed = 10.0
+					self.get_node("AnimatedSprite").animation = "idle"
 	if event is InputEventMouseMotion:
-		self.look_at(event.position)
+		self.look_at(get_global_mouse_position())
 	pass
